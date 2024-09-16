@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
+    <title>Custom Countdown Timer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             background-color: #f4f4f4;
             margin: 0;
@@ -17,15 +18,42 @@
         #countdown {
             font-size: 48px;
             color: #333;
+            margin-top: 20px;
+        }
+        input {
+            font-size: 18px;
+            padding: 10px;
+            margin: 5px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
+    <h1>Set Your Countdown</h1>
+    <label for="date">Date:</label>
+    <input type="date" id="date">
+    <label for="time">Time:</label>
+    <input type="time" id="time">
+    <button onclick="startCountdown()">Start Countdown</button>
+
     <div id="countdown"></div>
 
     <script>
-        function countdownTimer() {
-            var countdownDate = new Date("Sep 30, 2024 00:00:00").getTime();
+        function startCountdown() {
+            var dateInput = document.getElementById('date').value;
+            var timeInput = document.getElementById('time').value;
+
+            if (!dateInput || !timeInput) {
+                alert("Please enter both date and time!");
+                return;
+            }
+
+            var countdownDate = new Date(dateInput + "T" + timeInput).getTime();
+
             var x = setInterval(function() {
                 var now = new Date().getTime();
                 var distance = countdownDate - now;
@@ -44,8 +72,6 @@
                 }
             }, 1000);
         }
-
-        countdownTimer();
     </script>
 </body>
 </html>
